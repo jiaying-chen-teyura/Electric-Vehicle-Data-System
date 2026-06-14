@@ -6,10 +6,10 @@ Description:        lab 1
 */
 package BusinessLogic;
 
-
 import DataAccessLayer.EVDAO;
 import DataAccessLayer.EVDAOImpl;
-import TransferObjects.ReportDTO;
+import TransferObjects.EVDTO;
+import java.util.List;
 
 /**
  * Business Logic Layer (BLL) class responsible for coordinating
@@ -30,7 +30,7 @@ public class EVBusinessLogic {
      *
      * @return ReportDTO containing EV records and metadata
      */
-    public ReportDTO getAllEvs(){
+    public List<EVDTO> getAllEvs(){
         return evDAO.getAllEVs();
     }
 }

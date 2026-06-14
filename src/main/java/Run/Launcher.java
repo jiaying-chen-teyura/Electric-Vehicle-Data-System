@@ -9,7 +9,6 @@ package Run;
 
 import BusinessLogic.EVBusinessLogic;
 import TransferObjects.EVDTO;
-import TransferObjects.ReportDTO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,26 +31,20 @@ public class Launcher{
     public static void main(String args[]){
         
         EVBusinessLogic evLogic = new EVBusinessLogic();
-        ReportDTO report = evLogic.getAllEvs();
-        printReport(report);
+        
+        List<EVDTO>  evs = evLogic.getAllEvs();
+        printReport(evs);
+        
+        
     }
     
-   /**
-     * Displays the complete EV report including metadata,
-     * EV records, and summary totals.
-     *
-     * @param report report containing EV data and metadata
-     */
-    private static void printReport(ReportDTO report){
-        List<EVDTO> evs = report.getEvs();
 
-        
+    private static void printReport(List<EVDTO> evs){
         System.out.println("EV Counts for Ontario ");
         System.out.printf("%-6s %-67s %-6s "
                             + "%-6s %-6s\n",
                           "FSA","City", "BEV", "PHEV", "TotalEv");
- 
-        
+
         for(EVDTO ev : evs){
             printEV(ev);
         }
@@ -75,7 +68,7 @@ public class Launcher{
         int bevTotal = 0;
         int phevTotal = 0;
         int totalEVTotal = 0;
-        List<Integer> totals = new ArrayList<Integer>();
+        List<Integer> totals = new ArrayList<>();
         
         for (EVDTO ev : evs){
             bevTotal+=ev.getBev();
@@ -89,7 +82,6 @@ public class Launcher{
         return totals;
     }
     
-
     
     /**
      * Prints a formatted EV record.

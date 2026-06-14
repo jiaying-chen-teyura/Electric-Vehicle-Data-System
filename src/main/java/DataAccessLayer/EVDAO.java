@@ -6,7 +6,8 @@ Description:        lab 1
 */
 package DataAccessLayer;
 
-import TransferObjects.ReportDTO;
+import TransferObjects.EVDTO;
+import java.util.List;
 
 
 /**
@@ -16,5 +17,5 @@ import TransferObjects.ReportDTO;
  * @author Chen Jiaying
  */
 public interface EVDAO {
-    ReportDTO getAllEVs();
+    List<EVDTO> getAllEVs();
 }

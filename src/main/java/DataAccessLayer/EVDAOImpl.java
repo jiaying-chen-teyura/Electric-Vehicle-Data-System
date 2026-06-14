@@ -9,12 +9,10 @@ package DataAccessLayer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import TransferObjects.EVDTO;
-import TransferObjects.MetaDTO;
-import TransferObjects.ReportDTO;
+import java.util.List;
 
 
 /**
@@ -25,24 +23,19 @@ import TransferObjects.ReportDTO;
  */
 public class EVDAOImpl implements EVDAO {
     
-    /**
-     * Retrieves all EV records from the database and stores them
-     * in a ReportDTO object along with metadata information.
-     *
-     * @return ReportDTO containing EV data and column metadata
-     */
+
     @Override
-    public ReportDTO getAllEVs(){
+    public List<EVDTO> getAllEVs(){
         // DTOs
-        ReportDTO report = new ReportDTO();
+        
         ArrayList<EVDTO> EVs = null;
-        ArrayList<MetaDTO> metas = null;
+        
 
         // JDBC objects
         Connection connection = null;
         PreparedStatement prepStatement = null;
         ResultSet resultSet = null;
-        ResultSetMetaData meta = null;
+        
         
         try{
             // get data from mysql
@@ -53,20 +46,8 @@ public class EVDAOImpl implements EVDAO {
                             "WHERE c.Fsa = o.Fsa";
             prepStatement = connection.prepareStatement(query);
             resultSet = prepStatement.executeQuery();
-            meta = resultSet.getMetaData();
             
-            // adding metaDTO to meta list
-            metas = new ArrayList<>();
-            int numsOfColumns = meta.getColumnCount();
-        
-            for(int i = 1; i <= numsOfColumns; i++){
-                MetaDTO metadata = new MetaDTO();
-                metadata.setColumnName(meta.getColumnName(i));
-                metadata.setSqlType(meta.getColumnTypeName(i));
-                metadata.setClassName(meta.getColumnClassName(i));
-                metas.add(metadata);
-            }
-
+            
             // adding EVDTO to ev list
             EVs = new ArrayList<>();
             while(resultSet.next()){
@@ -78,10 +59,7 @@ public class EVDAOImpl implements EVDAO {
                 ev.setTotalEv(resultSet.getInt("TotalEv"));
                 EVs.add(ev);  
             }
-            
-            // adding report list
-            report.setEvs(EVs);
-            report.setMetas(metas);
+
         }catch(SQLException se){
             se.printStackTrace();
         }finally{
@@ -96,7 +74,7 @@ public class EVDAOImpl implements EVDAO {
             }
         }// end of finally
         
-        return  report;
+        return  EVs;
     }; // end of getAllEVs
     
 }
