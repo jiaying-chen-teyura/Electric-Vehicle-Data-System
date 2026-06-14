@@ -1,0 +1,138 @@
+/*
+Student:            Chen Jiaying
+No. :               041191259
+Class & Section:    CST8288 section 013
+Description:        lab 1
+*/
+
+package Run;
+
+import BusinessLogic.EVBusinessLogic;
+import java.util.ArrayList;
+import java.util.List;
+import transferObjects.EVDTO;
+import transferObjects.MetaDTO;
+import transferObjects.ReportDTO;
+
+
+/**
+ * Application entry point.
+ *
+ * Retrieves Electric Vehicle (EV) data from the business layer and
+ * displays a formatted report to the console.
+ * 
+ * @author Chen Jiaying
+ */
+public class Launcher{
+    
+    /**
+     * Launcher method that starts the application.
+     *
+     * @param args command-line arguments(not used)
+     */
+    public static void main(String args[]){
+        
+        EVBusinessLogic evLogic = new EVBusinessLogic();
+        ReportDTO report = evLogic.getAllEvs();
+        printReport(report);
+    }
+    
+   /**
+     * Displays the complete EV report including metadata,
+     * EV records, and summary totals.
+     *
+     * @param report report containing EV data and metadata
+     */
+    private static void printReport(ReportDTO report){
+        List<EVDTO> evs = report.getEvs();
+        List<MetaDTO> metas = report.getMetas();
+        
+        System.out.println("Table: evontario - Column Attributes ");
+            
+        for(MetaDTO me : metas){
+            printMeta(me);   
+        }
+        
+        System.out.println("");
+        System.out.printf("%-67s %-6s %-6s "
+                            + "%-6s %-6s\n",
+                          "City", "Fsa", "Bev", "Phev", "TotalEv");
+        System.out.println("------------------------------------------------------------------------------------------------------");
+        
+        for(EVDTO ev : evs){
+            printEV(ev);
+        }
+        
+        System.out.println("------------------------------------------------------------------------------------------------------");
+        printTotals(calculateSum(evs));
+    }
+    
+    /**
+     * Calculates total values for BEVs, PHEVs, and all EVs.
+     *
+     * @param evs list of EV records
+     * @return list containing:
+     *         <ul>
+     *         <li>Index 0 = Total BEVs</li>
+     *         <li>Index 1 = Total PHEVs</li>
+     *         <li>Index 2 = Total EVs</li>
+     *         </ul>
+     */
+    private static List<Integer> calculateSum(List<EVDTO> evs){
+        int bevTotal = 0;
+        int phevTotal = 0;
+        int totalEVTotal = 0;
+        List<Integer> totals = new ArrayList<Integer>();
+        
+        for (EVDTO ev : evs){
+            bevTotal+=ev.getBev();
+            phevTotal+=ev.getPhev();
+            totalEVTotal+=ev.getTotalEv();
+        }
+        totals.add(bevTotal);
+        totals.add(phevTotal);
+        totals.add(totalEVTotal);
+        
+        return totals;
+    }
+    
+    /**
+     * Prints metadata information for a database column.
+     *
+     * @param md metadata object containing column information
+     */
+    private static void printMeta(MetaDTO md){
+        System.out.printf("%-18s %-14s %-14s\n"
+                            ,md.getColumnName() 
+                            ,md.getSqlType()
+                            ,md.getClassName());
+    }
+    
+    /**
+     * Prints a formatted EV record.
+     *
+     * @param ev EV data object to display
+     */
+    private static void printEV(EVDTO ev){
+        System.out.printf("%-67s %-6s %-6d "
+                            + "%-6d %-6d\n"
+                            ,ev.getCity(), ev.getFsa()
+                            ,ev.getBev(), ev.getPhev()
+                            ,ev.getTotalEv());
+    }
+    
+    /**
+     * Prints summary totals for the report.
+     *
+     * @param totals list containing total values for BEVs,
+     *               PHEVs, and total EVs
+     */
+    private static void printTotals(List<Integer> totals){
+
+        System.out.printf("%-75s","Total");
+        System.out.printf("%-6d %-6d %-6d\n",
+                           totals.get(0),
+                           totals.get(1),
+                           totals.get(2));
+    }
+}
