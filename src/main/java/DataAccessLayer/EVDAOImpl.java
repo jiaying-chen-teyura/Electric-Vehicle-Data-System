@@ -12,9 +12,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import transferObjects.EVDTO;
-import transferObjects.MetaDTO;
-import transferObjects.ReportDTO;
+import TransferObjects.EVDTO;
+import TransferObjects.MetaDTO;
+import TransferObjects.ReportDTO;
 
 
 /**

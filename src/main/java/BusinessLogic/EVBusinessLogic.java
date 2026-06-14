@@ -9,7 +9,7 @@ package BusinessLogic;
 
 import DataAccessLayer.EVDAO;
 import DataAccessLayer.EVDAOImpl;
-import transferObjects.ReportDTO;
+import TransferObjects.ReportDTO;
 
 /**
  * Business Logic Layer (BLL) class responsible for coordinating

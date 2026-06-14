@@ -1,0 +1,8 @@
+BusinessLogic\EVBusinessLogic.class
+DataAccessLayer\EVDAOImpl.class
+DataAccessLayer\EVDAO.class
+transferObjects\ReportDTO.class
+DataAccessLayer\DataSource.class
+Run\Launcher.class
+transferObjects\EVDTO.class
+transferObjects\MetaDTO.class

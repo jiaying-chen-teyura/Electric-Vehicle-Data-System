@@ -6,7 +6,7 @@ Description:        lab 1
 */
 package DataAccessLayer;
 
-import transferObjects.ReportDTO;
+import TransferObjects.ReportDTO;
 
 
 /**

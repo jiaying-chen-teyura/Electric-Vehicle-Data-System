@@ -4,7 +4,8 @@ No. :               041191259
 Class & Section:    CST8288 section 013
 Description:        lab 1
 */
-package transferObjects;
+package TransferObjects;
+
 
 import java.util.List;
 

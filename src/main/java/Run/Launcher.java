@@ -8,11 +8,10 @@ Description:        lab 1
 package Run;
 
 import BusinessLogic.EVBusinessLogic;
+import TransferObjects.EVDTO;
+import TransferObjects.ReportDTO;
 import java.util.ArrayList;
 import java.util.List;
-import transferObjects.EVDTO;
-import transferObjects.MetaDTO;
-import transferObjects.ReportDTO;
 
 
 /**
@@ -45,19 +44,13 @@ public class Launcher{
      */
     private static void printReport(ReportDTO report){
         List<EVDTO> evs = report.getEvs();
-        List<MetaDTO> metas = report.getMetas();
+
         
-        System.out.println("Table: evontario - Column Attributes ");
-            
-        for(MetaDTO me : metas){
-            printMeta(me);   
-        }
-        
-        System.out.println("");
-        System.out.printf("%-67s %-6s %-6s "
+        System.out.println("EV Counts for Ontario ");
+        System.out.printf("%-6s %-67s %-6s "
                             + "%-6s %-6s\n",
-                          "City", "Fsa", "Bev", "Phev", "TotalEv");
-        System.out.println("------------------------------------------------------------------------------------------------------");
+                          "FSA","City", "BEV", "PHEV", "TotalEv");
+ 
         
         for(EVDTO ev : evs){
             printEV(ev);
@@ -96,17 +89,7 @@ public class Launcher{
         return totals;
     }
     
-    /**
-     * Prints metadata information for a database column.
-     *
-     * @param md metadata object containing column information
-     */
-    private static void printMeta(MetaDTO md){
-        System.out.printf("%-18s %-14s %-14s\n"
-                            ,md.getColumnName() 
-                            ,md.getSqlType()
-                            ,md.getClassName());
-    }
+
     
     /**
      * Prints a formatted EV record.
@@ -114,9 +97,9 @@ public class Launcher{
      * @param ev EV data object to display
      */
     private static void printEV(EVDTO ev){
-        System.out.printf("%-67s %-6s %-6d "
+        System.out.printf("%-6s %-67s %-6d "
                             + "%-6d %-6d\n"
-                            ,ev.getCity(), ev.getFsa()
+                            , ev.getFsa(),ev.getCity()
                             ,ev.getBev(), ev.getPhev()
                             ,ev.getTotalEv());
     }
@@ -129,8 +112,8 @@ public class Launcher{
      */
     private static void printTotals(List<Integer> totals){
 
-        System.out.printf("%-75s","Total");
-        System.out.printf("%-6d %-6d %-6d\n",
+        System.out.printf("%-74s %-6d %-6d %-6d\n",
+                           "Total" ,
                            totals.get(0),
                            totals.get(1),
                            totals.get(2));
