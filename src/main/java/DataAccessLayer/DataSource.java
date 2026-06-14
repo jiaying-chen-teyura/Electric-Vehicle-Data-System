@@ -1,9 +1,4 @@
-/*
-Student:            Chen Jiaying
-No. :               041191259
-Class & Section:    CST8288 section 013
-Description:        lab 1
-*/
+
 package DataAccessLayer;
 
 import java.io.IOException;
@@ -16,14 +11,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 
-/**
- * Manages database connectivity for the application.
- * Uses a singleton-style approach to maintain a single database connection.
- *
- * @author Chen Jiaying
- */
+
 public class DataSource {
     /** Shared database connection object. */
+    
     private static volatile Connection cnt = null;
     
     /** Private constructor prevents instantiation. */
@@ -47,8 +38,6 @@ public class DataSource {
                     }
                 }
  
-            }else{
-                System.out.println("Cannot create new connection, using existing one");
             }
             
         }catch(SQLException sqlException){
@@ -93,4 +82,17 @@ public class DataSource {
     }
     
     
+    public static void closeConnection() {
+        if (cnt != null) {
+            try {
+                if (!cnt.isClosed()) {
+                    cnt.close();
+                    
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

@@ -1,14 +1,11 @@
-/*
-Student:            Chen Jiaying
-No. :               041191259
-Class & Section:    CST8288 section 013
-Description:        lab 1
-*/
+
 
 package Run;
 
 import BusinessLogic.EVBusinessLogic;
+import BusinessLogic.PostcodeBusineesLogic;
 import TransferObjects.EVDTO;
+import TransferObjects.PostcodeDTO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +16,7 @@ import java.util.List;
  * Retrieves Electric Vehicle (EV) data from the business layer and
  * displays a formatted report to the console.
  * 
- * @author Chen Jiaying
+ * @author 
  */
 public class Launcher{
     
@@ -31,11 +28,16 @@ public class Launcher{
     public static void main(String args[]){
         
         EVBusinessLogic evLogic = new EVBusinessLogic();
+        PostcodeBusineesLogic pcLogic = new PostcodeBusineesLogic();
+        String queryFsa = "K2G";
         
         List<EVDTO>  evs = evLogic.getAllEvs();
         printReport(evs);
+
+        PostcodeDTO pcDTO = pcLogic.getPostcodeByFsa(queryFsa);
+        printPostcode(pcDTO);
         
-        
+        DataAccessLayer.DataSource.closeConnection();
     }
     
 
@@ -51,6 +53,7 @@ public class Launcher{
         
         System.out.println("------------------------------------------------------------------------------------------------------");
         printTotals(calculateSum(evs));
+        
     }
     
     /**
@@ -109,5 +112,24 @@ public class Launcher{
                            totals.get(0),
                            totals.get(1),
                            totals.get(2));
+    }
+    
+    
+           
+    private static void printPostcode(PostcodeDTO pcDTO){
+        System.out.println("");
+        System.out.println("FSA for Algonquin College: ");
+        System.out.printf("%-6s %-68s %-16s %-16s %-16s\n",
+                            "Fsa","City", "Province", "Latitude",
+                            "Longitude");
+        
+        System.out.printf("%-6s %-68s %-16s %-16f %-16f\n",
+                           
+                           pcDTO.getFsa(),
+                           pcDTO.getCity(),
+                           pcDTO.getProvince(),
+                           pcDTO.getLatitude(),
+                           pcDTO.getLongitude());
+                           
     }
 }

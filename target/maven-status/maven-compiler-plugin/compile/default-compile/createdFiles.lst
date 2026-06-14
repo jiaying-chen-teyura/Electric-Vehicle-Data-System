@@ -1,7 +1,10 @@
 BusinessLogic\EVBusinessLogic.class
+transferObjects\PostcodeDTO.class
 DataAccessLayer\EVDAOImpl.class
+DataAccessLayer\PostcodeDAOImpl.class
 DataAccessLayer\EVDAO.class
 DataAccessLayer\DataSource.class
+DataAccessLayer\PostcodeDAO.class
 Run\Launcher.class
 transferObjects\EVDTO.class
-transferObjects\MetaDTO.class
+BusinessLogic\PostcodeBusineesLogic.class
