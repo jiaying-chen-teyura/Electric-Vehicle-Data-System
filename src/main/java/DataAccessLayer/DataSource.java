@@ -24,7 +24,7 @@ import java.util.Properties;
  */
 public class DataSource {
     /** Shared database connection object. */
-    private static Connection connection = null;
+    private static volatile Connection cnt = null;
     
     /** Private constructor prevents instantiation. */
     private DataSource(){};
@@ -40,19 +40,22 @@ public class DataSource {
         String[] connectionInfo = openPropsFile();
 
         try{
-            if(connection == null){
-                connection = DriverManager.getConnection(connectionInfo[0],connectionInfo[1],connectionInfo[2]);
+            if(cnt == null){
+                synchronized(DataSource.class){
+                    if(cnt == null){
+                        cnt = DriverManager.getConnection(connectionInfo[0],connectionInfo[1],connectionInfo[2]);
+                    }
+                }
  
             }else{
                 System.out.println("Cannot create new connection, using existing one");
             }
             
-            
         }catch(SQLException sqlException){
             sqlException.printStackTrace();
         }
         
-        return connection;
+        return cnt;
     }//end of getConnection
     
     
