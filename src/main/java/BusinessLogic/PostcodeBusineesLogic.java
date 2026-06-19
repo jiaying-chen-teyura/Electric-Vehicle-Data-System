@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package BusinessLogic;
 
 
@@ -12,17 +9,24 @@ import TransferObjects.PostcodeDTO;
 
 
 /**
+ * Business logic class for postal code operations.
  *
- * @author Teyura
+ * <p>This class acts as an intermediary between the presentation layer
+ * and the data access layer. It provides access to postal code data
+ * retrieved from the database.</p>
+ *
+ * @author 
  */
 public class PostcodeBusineesLogic {
     private PostcodeDAO pcDAO = new PostcodeDAOImpl();
     
     
     /**
-     * Retrieves all electric vehicle data from the data access layer.
+     * Retrieves postal code information for a specified FSA
      *
-     * @return ReportDTO containing EV records and metadata
+     * @param queryFsa the FSA to search for
+     * @return the postal code record matching the specified FSA;
+     *         returns {@code null} if no matching record is found
      */
     public PostcodeDTO getPostcodeByFsa(String queryFsa){
         return pcDAO.getPostcodeByFsa(queryFsa);

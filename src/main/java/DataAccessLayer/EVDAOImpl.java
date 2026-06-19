@@ -12,12 +12,24 @@ import java.util.List;
 
 /**
  * Implementation of the EVDAO interface.
- * Responsible for retrieving EV data and metadata from the database.
+ * Responsible for retrieving EV data from the database.
  *
- * @author Chen Jiaying
+ * @author 
  */
 public class EVDAOImpl implements EVDAO {
     
+    /**
+     * Retrieves all electric vehicle records by joining the
+     * {@code evcounts} and {@code ottawapostalcodes} tables.
+     *
+     * <p>The result set contains city information together with
+     * battery electric vehicle (BEV), plug-in hybrid electric
+     * vehicle (PHEV), and total electric vehicle counts for each
+     * Forward Sortation Area (FSA).</p>
+     *
+     * @return a list of {@code EVDTO} objects containing electric
+     *         vehicle data; returns {@code null} if an error occurs
+    */
 
     @Override
     public List<EVDTO> getAllEVs(){

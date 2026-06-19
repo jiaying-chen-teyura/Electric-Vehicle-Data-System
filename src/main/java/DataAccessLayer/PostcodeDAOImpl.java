@@ -5,14 +5,36 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
 
-
+/**
+ * Implementation of the {@link PostcodeDAO} interface.
+ *
+ * <p>This class retrieves postal code information from the
+ * database using JDBC. Query results are mapped to
+ * {@code PostcodeDTO} objects and returned to the business layer.</p>
+ *
+ * @author 
+ */
 public class PostcodeDAOImpl implements PostcodeDAO {
+    
+    /**
+     * Retrieves postal code information for a specified
+     * Forward Sortation Area (FSA).
+     *
+     * <p>This method executes a parameterized SQL query using a
+     * {@code PreparedStatement} and maps the result to a
+     * {@code PostcodeDTO} object.</p>
+     *
+     * @param queryFsa the FSA to search for
+     * @return a {@code PostcodeDTO} containing the matching
+     *         postal code information; returns an empty DTO if
+     *         no matching record is found
+    */
+    
     @Override
     public PostcodeDTO getPostcodeByFsa(String queryFsa) {
         PostcodeDTO pcDTO = new PostcodeDTO();
-        Scanner sc = new Scanner(System.in);
+        
         // JDBC objects
         Connection connection = null;
 
@@ -45,7 +67,6 @@ public class PostcodeDAOImpl implements PostcodeDAO {
         } 
 
         return pcDTO;
-    }
-; // end of getAllEVs
+    }; 
 
 }

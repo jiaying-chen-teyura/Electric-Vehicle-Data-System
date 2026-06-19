@@ -10,10 +10,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-
+/**
+* Provides access to the application's database connection.
+*
+* <p>This class implements the Singleton Design Pattern to ensure that
+* only one database connection instance exists throughout the lifetime
+* of the application. The connection is created lazily when first
+* requested and is shared by all data access objects.</p>
+*
+* <p>Thread safety is achieved using the double-checked locking
+* pattern together with a {@code volatile} connection reference.</p>
+*
+* @author 
+* @version 1.0
+*/
 
 public class DataSource {
-    /** Shared database connection object. */
+    // Shared database connection object. 
     
     private static volatile Connection cnt = null;
     
@@ -21,11 +34,11 @@ public class DataSource {
     private DataSource(){};
     
     /**
-     * Retrieves the database connection.
+     * Returns the shared database connection.
      * If a connection does not exist, one is created using
      * properties loaded from the configuration file.
      *
-     * @return active database connection
+     * @return the shared database connection
      */
     public static Connection getConnection(){
         String[] connectionInfo = openPropsFile();
@@ -81,7 +94,13 @@ public class DataSource {
        return info;
     }
     
-    
+    /**
+
+  * Closes the shared database connection if it is open.
+  *
+  * <p>This method should be called when the application terminates
+  * to release database resources.</p>
+    */
     public static void closeConnection() {
         if (cnt != null) {
             try {

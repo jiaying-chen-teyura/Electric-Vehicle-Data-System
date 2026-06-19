@@ -1,12 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DataAccessLayer;
 
 import TransferObjects.PostcodeDTO;
 
-
+/**
+ * Data Access Object (DAO) interface for postal code data.
+ *
+ * <p>Defines the database operations available for retrieving
+ * postal code information from the database.</p>
+ *
+ * @author 
+ */
 public interface PostcodeDAO {
     PostcodeDTO getPostcodeByFsa(String queryFsa);
 }

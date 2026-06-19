@@ -1,9 +1,4 @@
-/*
-Student:            Chen Jiaying
-No. :               041191259
-Class & Section:    CST8288 section 013
-Description:        lab 1
-*/
+
 package BusinessLogic;
 
 import DataAccessLayer.EVDAO;
@@ -18,7 +13,7 @@ import java.util.List;
  * This class acts as an intermediary between the user interface and
  * database operations.
  *
- * @author Chen Jiaying
+ * @author 
  */
 public class EVBusinessLogic {
 
@@ -28,7 +23,7 @@ public class EVBusinessLogic {
     /**
      * Retrieves all electric vehicle data from the data access layer.
      *
-     * @return ReportDTO containing EV records and metadata
+     * @return a list containing all electric vehicle records
      */
     public List<EVDTO> getAllEvs(){
         return evDAO.getAllEVs();

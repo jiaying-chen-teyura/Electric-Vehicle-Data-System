@@ -1,5 +1,3 @@
-
-
 package Run;
 
 import BusinessLogic.EVBusinessLogic;
@@ -11,19 +9,24 @@ import java.util.List;
 
 
 /**
- * Application entry point.
+ * Entry point for the Electric Vehicle reporting application.
  *
- * Retrieves Electric Vehicle (EV) data from the business layer and
- * displays a formatted report to the console.
- * 
- * @author 
+ * <p>This class retrieves electric vehicle and postal code data through
+ * the business layer and displays formatted reports to the console.</p>
+ *
+ * @author Chen Jiaying
  */
 public class Launcher{
     
     /**
-     * Launcher method that starts the application.
+     * Starts the application.
      *
-     * @param args command-line arguments(not used)
+     * <p>Retrieves electric vehicle data, displays a report containing
+     * electric vehicle counts by FSA displays
+     * postal code information for Algonquin College, and closes the
+     * database connection before terminating.</p>
+     *
+     * @param args command-line arguments (not used)
      */
     public static void main(String args[]){
         
@@ -33,14 +36,19 @@ public class Launcher{
         
         List<EVDTO>  evs = evLogic.getAllEvs();
         printReport(evs);
-
+        
         PostcodeDTO pcDTO = pcLogic.getPostcodeByFsa(queryFsa);
         printPostcode(pcDTO);
         
         DataAccessLayer.DataSource.closeConnection();
     }
     
-
+    /**
+     * Displays a formatted report of electric vehicle records and summary
+     * totals.
+     *
+     * @param evs the list of electric vehicle records to display
+     */
     private static void printReport(List<EVDTO> evs){
         System.out.println("EV Counts for Ontario ");
         System.out.printf("%-6s %-67s %-6s "
@@ -100,7 +108,7 @@ public class Launcher{
     }
     
     /**
-     * Prints summary totals for the report.
+     * Prints the summary totals for the report.
      *
      * @param totals list containing total values for BEVs,
      *               PHEVs, and total EVs
@@ -114,7 +122,11 @@ public class Launcher{
                            totals.get(2));
     }
     
-    
+    /**
+     * Displays postal code information for a FSA.
+     *
+     * @param pcDTO the postal code data transfer object to display
+     */
            
     private static void printPostcode(PostcodeDTO pcDTO){
         System.out.println("");
